@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 """Tests for `iact_observation_planner` package."""
+import os
+import subprocess as sp
+
 
 import pytest
 
@@ -8,17 +11,13 @@ import pytest
 from iact_observation_planner import iact_observation_planner
 
 
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
+def test_deploy_config(tmp_path):
+    site_cfg = "site_config.json"
+    command = "iact-observation-planner"
 
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+    call = sp.run([command, "--init", str(tmp_path)], stdout=sp.PIPE)
+    print(call.stdout.decode("utf-8"))
 
-
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+    dest_file = "{}".format(str(tmp_path) + "/" + site_cfg)
+    assert "GENERATED DEFAULT CONFIG ->" and dest_file in call.stdout.decode("utf-8")
+    assert os.path.isfile(dest_file)
