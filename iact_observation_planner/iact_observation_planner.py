@@ -26,7 +26,7 @@ def parse_options(site, darkness, date, plan_range):
     opts.add(parse_site(site))
     opts.add(parse_darkness(darkness))
 
-    return parsed_targets, opts
+    return opts
 
 
 def parse_darkness(option):
