@@ -37,11 +37,18 @@ class Target:
     * end time(s) of observable windows
     """
 
-    def __init__(self, name, coord, alt=45, hours=2):
+    def __init__(self, name, coord, alt, hours):
         self.name = name
         self.coords = coord
         self.alt_limit = alt
         self.hours = hours
+
+        # set altitude and hours to default values
+        if not self.alt_limit:
+            self.alt_limit = 45
+        if not self.hours:
+            self.hours = 2
+
         self.observe_starts = []
         self.observe_ends = []
 
@@ -50,9 +57,12 @@ class Target:
         out += "{0:15s} : {coord}".format(
             self.name, coord=self.coords.to_string(style="hmsdms")
         )
-        out += " - (ra = {:2.2f} deg = {:2.2f} deg)".format(
+        out += " - (ra = {:2.2f} deg = {:2.2f} deg)\n".format(
             self.coords.ra.deg, self.coords.dec.deg
         )
+        out += "{0:15s}   Altitude > {1};".format("", self.alt_limit)
+        out += " {0:15s}   Target observation time = {1}".format("", self.hours)
+
         return out
 
 

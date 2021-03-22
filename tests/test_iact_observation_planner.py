@@ -43,7 +43,12 @@ def test_cfg_data(site, dark):
 
 
 @pytest.mark.parametrize(
-    "targets", [["Crab Nebula;30;2", "Vela Pulsar;25;4"], ["PKS2155-304;55;10"]]
+    "targets",
+    [
+        ["Crab Nebula;30;2", "Vela Pulsar;25;4"],
+        ["PKS2155-304;55;10"],
+        ["rd/123.3,-23.5/my_target;15;8"],
+    ],
 )
 @pytest.mark.parametrize("darkness", [None, "dark", "gray", "bright"])
 def test_main_script_options(targets, darkness):

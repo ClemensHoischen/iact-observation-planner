@@ -24,14 +24,15 @@ def deploy_default_cfg(path):
     print("GENERATED DEFAULT CONFIG -> {}".format(destination))
     print(json.dumps(default_config, indent=4), "\n")
     print(
-        "execute: export SITE_CONFIG={}".format(destination),
-        "to use this configuration.",
+        "execute: export IOP_SITE_CONFIG={}".format(destination),
+        "to use this configuration. NOT IMPLEMENTED YET",
     )
     return 0
 
 
 def main():
-    """Console script for iact_observation_planner."""
+    """Console script for iact_observation_planner that deploys a configuration
+    to user sapce and instructs the user how to enforce it being used."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--init",
@@ -50,4 +51,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    main()

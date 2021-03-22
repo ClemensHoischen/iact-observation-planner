@@ -5,13 +5,12 @@ contains the default observer configuration that is written to user-space for co
 
 import json
 
-import astropy.units as u
 from astropy.coordinates import EarthLocation
 
 
 class ObserverConfiguration:
-    """ class for the handling of the observer configuration
-    that dictates the configurations for the planning of the observations """
+    """class for the handling of the observer configuration
+    that dictates the configurations for the planning of the observations"""
 
     def __init__(self, cfg_data):
         self.cfg_data = cfg_data

@@ -13,9 +13,7 @@ setup_requirements = [
     "astropy",
 ]
 
-test_requirements = [
-    "pytest>=3",
-]
+test_requirements = ["pytest>=3", "pytest-cov>=2.11"]
 
 setup(
     author="Clemens Hoischen",

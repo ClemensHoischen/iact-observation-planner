@@ -6,6 +6,8 @@ To be called via the commandline with `iact-observation-planner`
 import argparse
 import sys
 
+from datetime import datetime, timedelta
+
 from iact_observation_planner import targets
 
 
@@ -33,12 +35,15 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
         "-d",
         "--date",
         dest="date",
+        default=datetime.today(),
         help="date for the planning of observations",
     )
     parser.add_argument(
         "-r",
         "--range",
         dest="range",
+        default=1,
+        type=int,
         help="range of days to consider for the planning",
     )
     parser.add_argument(
@@ -48,6 +53,14 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
         help="darknes configuration to be used in the planning",
         default="dark",
     )
+    parser.add_argument(
+        "-s",
+        "--site",
+        dest="site",
+        help="select a site for the planned observations"
+        + "(needs to be present in the configuration)",
+        default="HESS",
+    )
 
     args = parser.parse_args()
 
@@ -56,10 +69,17 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
         return 0
 
     parsed_targets = targets.resolve_target_list(args.target)
-    print(parsed_targets)
+
+    print("Will evaluate the possible observation for targets:")
+    for target in parsed_targets:
+        print(target)
+    print("planning with:")
+    print("  * site: {}".format(args.site))
+    print("  * date: {}".format(args.date))
+    print("  * range: {}".format(timedelta(days=args.range)))
 
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    main()
