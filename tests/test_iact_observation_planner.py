@@ -42,16 +42,7 @@ def test_cfg_data():
     run_dur, wobble = cfg.get_observation_pars()
 
 
-@pytest.mark.parametrize(
-    "target_names", [["Crab Nebula", "Vela Pulsar"], ["PKS2155-304"]]
-)
-def test_targets(target_names):
-    test_targets = targets.resolve_target_list(target_names)
-    for target in test_targets:
-        print(test_targets)
-
-
-@pytest.mark.parametrize("targets", [["Crab Nebula", "Vela Pulsar"], ["PKS2155-304"]])
+@pytest.mark.parametrize("targets", [["Crab Nebula;30;2", "Vela Pulsar;25;4"], ["PKS2155-304;55;10"]])
 @pytest.mark.parametrize("darkness", [None, "dark", "gray", "bright"])
 def test_main_script_options(targets, darkness):
     command = "iact-observation-planner"

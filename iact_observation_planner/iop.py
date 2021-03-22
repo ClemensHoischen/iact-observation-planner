@@ -2,22 +2,28 @@ import argparse
 import sys
 import os
 
+from iact_observation_planner import targets
+
 
 def main():
     """Console script for iact_observation_planner."""
     parser = argparse.ArgumentParser(
-"""Plan observations for specified targets with many options.\n
+        """Plan observations for specified targets with many options.\n
 The target names can either be a source name resolvable by Simbad, or if prefixed
 by rd/ or lb/,  a set of RA/Dec or Galactic coordinates in the format
 expected by astropy SkyCoords, separated by a comma. E.g. rd/14h23m27s,-29d
 or rd/280.0d,-45.6d You can add a tag name too: rd/14h23m,-29d/MySource
-""")
+"""
+    )
     parser.add_argument(
         "--target",
         metavar="target",
         type=str,
         nargs="+",
-        help="targets to plan observations for. Expected Format: e.g. \"<target_name>;<altitude_limit>;<hours>\"."
+        help="""Targets to plan observations for.
+Expected Format: e.g. <target_name>;<altitude_limit>;<hours>.\n
+Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
+30 deg altitude limit for 5 hours.""",
     )
     parser.add_argument(
         "-d",
@@ -41,7 +47,8 @@ or rd/280.0d,-45.6d You can add a tag name too: rd/14h23m,-29d/MySource
 
     args = parser.parse_args()
 
-    print(args.target)
+    parsed_targets = targets.resolve_target_list(args.target)
+    print(parsed_targets)
 
     return 0
 
