@@ -21,3 +21,8 @@ It will copy the default configuration to `<path>`. Applying an environemnt vari
 ## Usage
 
 just try `iact-observation-planner --help` for the details.
+
+
+## Acknowledgements
+
+Parts of this project are based on the the [hessobs!](https://github.com/kosack/hessobs) project by @kosack.
