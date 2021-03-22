@@ -23,6 +23,10 @@ class ObserverConfiguration:
 
     def get_site_from_name(self, name):
         """ Getter for the specific site from the cfg"""
+        if name not in self.sites.keys():
+            print("SITE {} is not supported in the config.".format(name))
+            exit()
+
         site = self.sites[name]
         return EarthLocation(
             lon=float(site["lon"]),
@@ -32,6 +36,10 @@ class ObserverConfiguration:
 
     def get_darkness_from_name(self, name):
         """ Getter for specific darkness criteria from the config """
+        if not name in self.darkness.keys():
+            print("DARKNESS option {} is not supported in the config!".format(name))
+            exit()
+
         return self.darkness[name]
 
     def get_observation_pars(self):

@@ -4,11 +4,11 @@ To be called via the commandline with `iact-observation-planner`
 """
 
 import argparse
-import sys
 
 from datetime import datetime, timedelta
 
 from iact_observation_planner import targets
+from iact_observation_planner import iact_observation_planner
 
 
 def main():
@@ -35,7 +35,7 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
         "-d",
         "--date",
         dest="date",
-        default=datetime.today(),
+        default=None,
         help="date for the planning of observations",
     )
     parser.add_argument(
@@ -75,11 +75,15 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
         print(target)
     print("planning with:")
     print("  * site: {}".format(args.site))
+    print("  * darkness: {}".format(args.darkness))
     print("  * date: {}".format(args.date))
     print("  * range: {}".format(timedelta(days=args.range)))
 
     return 0
-
+    # 
+    # return iact_observation_planner.plan_targets(
+    #     args.targets, args.site, args.darkness, args.date, args.range
+    # )
 
 if __name__ == "__main__":
     main()

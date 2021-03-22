@@ -1,7 +1,6 @@
 """Console script for iact_observation_planner."""
 import argparse
 import os
-import sys
 import json
 
 from iact_observation_planner.observer_config import default_observer_config
