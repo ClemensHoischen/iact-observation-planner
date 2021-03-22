@@ -1,6 +1,10 @@
+"""
+Main script of the iact-observation-planner tool.
+To be called via the commandline with `iact-observation-planner`
+"""
+
 import argparse
 import sys
-import os
 
 from iact_observation_planner import targets
 

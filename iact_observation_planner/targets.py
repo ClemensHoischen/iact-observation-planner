@@ -28,6 +28,15 @@ def resolve_target_coordinates(name):
 
 
 class Target:
+    """target class that holds the central information on each target, such as:
+    * name
+    * coordinates
+    * altitude limit in degrees
+    * hours targeted in observations
+    * start time(s) of observable windows
+    * end time(s) of observable windows
+    """
+
     def __init__(self, name, coord, alt=45, hours=2):
         self.name = name
         self.coords = coord
@@ -75,7 +84,12 @@ def resolve_target_list(targets_list):
         name = target_dict["name"]
         coords = resolve_target_coordinates(target_dict["name"])
         targets.append(
-            Target(target_dict["name"], coords, target_dict["alt_limit"], target_dict["hours"])
+            Target(
+                target_dict["name"],
+                coords,
+                target_dict["alt_limit"],
+                target_dict["hours"],
+            )
         )
 
     return targets

@@ -1,13 +1,15 @@
 """Console script for iact_observation_planner."""
 import argparse
-import sys
 import os
+import sys
 import json
 
 from iact_observation_planner.observer_config import default_observer_config
 
 
 def deploy_default_cfg(path):
+    """Function that deploys the default config to specified path and prompts the instructions
+    for the needed environment variable to make use of it."""
     site_cfg = "site_config.json"
     destination = path + "/" + site_cfg
 
@@ -44,9 +46,7 @@ def main():
         print("{} is not a valid path.\n ... Aborting.".format(target_base_path))
         return -1
 
-    return_site_cfg = deploy_default_cfg(target_base_path)
-
-    return 0
+    return deploy_default_cfg(target_base_path)
 
 
 if __name__ == "__main__":

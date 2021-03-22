@@ -6,11 +6,12 @@ contains the default observer configuration that is written to user-space for co
 import json
 
 import astropy.units as u
-from astropy.units import Quantity
 from astropy.coordinates import EarthLocation
 
 
 class ObserverConfiguration:
+    """ class for the handling of the observer configuration that dictates the configurations for the planning of the observations """
+
     def __init__(self, cfg_data):
         self.cfg_data = cfg_data
         self.sites = cfg_data["Sites"]
@@ -21,8 +22,7 @@ class ObserverConfiguration:
         return json.dumps(self.cfg_data, indent=2)
 
     def get_site_from_name(self, name):
-        # Getter for the specific site from the cfg
-        print("GET SITE")
+        """ Getter for the specific site from the cfg"""
         site = self.sites[name]
         return EarthLocation(
             lon=float(site["lon"]),
@@ -31,15 +31,17 @@ class ObserverConfiguration:
         )
 
     def get_darkness_from_name(self, name):
-        # Getter for specific darkness criteria from the config
+        """ Getter for specific darkness criteria from the config """
         return self.darkness[name]
 
     def get_observation_pars(self):
-        # Getter for observation parameters
+        """ Getter for observation parameters """
         return (self.obs_pars["run_duration"], self.obs_pars["wobble_offset"])
 
 
 def default_observer_config():
+    """returns a dictionary with the default observer configurations.
+    This will also be shipped to user-space when using iop-init"""
     cfg = {
         "Sites": {
             "HESS": {
@@ -51,7 +53,7 @@ def default_observer_config():
                 "lon": 18.890,
                 "lat": 28.7619,
                 "height": 2200,
-            }
+            },
         },
         "Darkness": {
             "dark": {
