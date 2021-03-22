@@ -26,21 +26,20 @@ def test_deploy_config(tmp_path):
     assert os.path.isfile(dest_file)
 
 
-def test_cfg_data():
+@pytest.mark.parametrize("site",["HESS", "MAGIC"])
+@pytest.mark.parametrize("dark",["dark", "gray", "bright"])
+def test_cfg_data(site, dark):
     site_cfg = observer_config.default_observer_config()
+
     cfg = observer_config.ObserverConfiguration(site_cfg)
-    assert cfg
-
-    site = cfg.get_site_from_name("HESS")
-    assert site
-
-    dark = cfg.get_darkness_from_name("dark")
-    gray = cfg.get_darkness_from_name("gray")
-    bright = cfg.get_darkness_from_name("bright")
-    assert dark and gray and bright
-
+    site = cfg.get_site_from_name(site)
+    darkness = cfg.get_darkness_from_name(dark)
     run_dur, wobble = cfg.get_observation_pars()
-
+    assert cfg
+    assert site
+    assert darkness
+    assert run_dur
+    assert wobble
 
 @pytest.mark.parametrize("targets", [["Crab Nebula;30;2", "Vela Pulsar;25;4"], ["PKS2155-304;55;10"]])
 @pytest.mark.parametrize("darkness", [None, "dark", "gray", "bright"])

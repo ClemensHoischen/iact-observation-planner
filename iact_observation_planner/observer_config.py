@@ -47,6 +47,11 @@ def default_observer_config():
                 "lat": -23.26,
                 "height": 1800,
             },
+            "MAGIC": {
+                "lon": 18.890,
+                "lat": 28.7619,
+                "height": 2200,
+            }
         },
         "Darkness": {
             "dark": {
