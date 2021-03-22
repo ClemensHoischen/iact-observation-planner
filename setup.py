@@ -7,10 +7,10 @@ from setuptools import setup, find_packages
 with open("README.md") as readme_file:
     readme = readme_file.read()
 
-requirements = []
+requirements = ["astropy==4.2"]
 
 setup_requirements = [
-    "pytest-runner",
+    "astropy",
 ]
 
 test_requirements = [
@@ -24,7 +24,8 @@ setup(
     description="observation planner tool for iacts",
     entry_points={
         "console_scripts": [
-            "iact-observation-planner=iact_observation_planner.cli:main",
+            "iop-init=iact_observation_planner.iop_init:main",
+            "iact-observation-planner=iact_observation_planner.iop:main",
         ],
     },
     install_requires=requirements,

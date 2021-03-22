@@ -4,7 +4,7 @@ import sys
 import os
 import json
 
-from iact_observation_planner.observer_config import observer_config
+from iact_observation_planner.observer_config import default_observer_config
 
 
 def deploy_default_cfg(path):
@@ -15,22 +15,27 @@ def deploy_default_cfg(path):
         print("Site Config already present. Delete it if you want to get a fresh one.")
         return -1
 
-    default_config = observer_config()
+    default_config = default_observer_config()
     with open(destination, "w") as config_file:
         json.dump(default_config, config_file)
 
     print("GENERATED DEFAULT CONFIG -> {}".format(destination))
     print(json.dumps(default_config, indent=4), "\n")
-    print("execute: export SITE_CONFIG={}".format(
-        destination), "to use this configuration.")
+    print(
+        "execute: export SITE_CONFIG={}".format(destination),
+        "to use this configuration.",
+    )
     return 0
 
 
 def main():
     """Console script for iact_observation_planner."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--init', dest='init_path',
-                        help="initialize a default configuration that can be tuned to your needs.")
+    parser.add_argument(
+        "--init",
+        dest="init_path",
+        help="initialize a default configuration that can be tuned to your needs.",
+    )
     args = parser.parse_args()
 
     target_base_path = args.init_path
