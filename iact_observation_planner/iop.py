@@ -51,6 +51,10 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
 
     args = parser.parse_args()
 
+    if not args.target:
+        parser.print_help()
+        return 0
+
     parsed_targets = targets.resolve_target_list(args.target)
     print(parsed_targets)
 
