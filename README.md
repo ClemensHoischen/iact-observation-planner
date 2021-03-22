@@ -25,4 +25,4 @@ just try `iact-observation-planner --help` for the details.
 
 ## Acknowledgements
 
-Parts of this project are based on the the [hessobs!](https://github.com/kosack/hessobs) project by @kosack.
+Parts of this project are based on the the [hessobs](https://github.com/kosack/hessobs) project by @kosack.
