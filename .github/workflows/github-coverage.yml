@@ -23,6 +23,7 @@ jobs:
         pip install --user .
     - name: Test coverage with pytest
       run: |
+        pytest --cov=. --cov-report=term
         TESTCOV="$(pytest --cov=. --cov-report=term)"
         echo "TESTCOV"
         echo "COVERAGE=$(echo ${TESTCOV})" >> $GITHUB_ENV
