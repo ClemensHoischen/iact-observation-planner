@@ -1,4 +1,4 @@
-name: run iact-observation-planner tests
+name: run tests-suite
 
 on: [push]
 
