@@ -27,7 +27,7 @@ jobs:
         cat coverage.txt | grep TOTAL | awk {'print $4'}" > pytest-coverage.txt
     - name: coverage-badge
       uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage
-          path: pytest-coverage.txt
+      with:
+        name: code-coverage
+        path: pytest-coverage.txt
         
