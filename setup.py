@@ -7,10 +7,7 @@ from setuptools import setup, find_packages
 with open("README.md") as readme_file:
     readme = readme_file.read()
 
-requirements = [
-    "astropy==4.2",
-    "ephem==3.7.7.0"
-]
+requirements = ["astropy==4.2", "ephem==3.7.7.0"]
 
 setup_requirements = [
     "astropy",

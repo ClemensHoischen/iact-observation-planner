@@ -121,7 +121,7 @@ def test_night(date, test_range):
 
 
 @pytest.mark.parametrize("test_dark", ["dark", "gray"])
-@pytest.mark.parametrize("test_site", ["HESS","MAGIC"])
+@pytest.mark.parametrize("test_site", ["HESS", "MAGIC"])
 @pytest.mark.parametrize("date", [datetime(2021, 3, 24)])
 def test_sunrise_sunset(date, test_site, test_dark):
     site = iact_observation_planner.parse_site(test_site)["site"]
