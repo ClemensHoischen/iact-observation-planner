@@ -80,10 +80,11 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
     print("  * range: {}".format(timedelta(days=args.range)))
 
     return 0
-    # 
+    #
     # return iact_observation_planner.plan_targets(
     #     args.targets, args.site, args.darkness, args.date, args.range
     # )
+
 
 if __name__ == "__main__":
     main()
