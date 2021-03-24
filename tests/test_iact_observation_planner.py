@@ -16,6 +16,12 @@ from iact_observation_planner import targets as iop_targets
 from iact_observation_planner import nights
 
 
+default_sites = ["HESS", "MAGIC"]
+default_darkness = ["dark", "gray", "bright"]
+default_dates = ["2021-01-01", None, datetime.utcnow()]
+default_ranges = [1, 2, 10]
+
+
 def test_deploy_config(tmp_path):
     site_cfg = "site_config.json"
     command = "iop-init"
@@ -27,8 +33,8 @@ def test_deploy_config(tmp_path):
     assert os.path.isfile(dest_file)
 
 
-@pytest.mark.parametrize("site", ["HESS", "MAGIC"])
-@pytest.mark.parametrize("dark", ["dark", "gray", "bright"])
+@pytest.mark.parametrize("site", default_sites)
+@pytest.mark.parametrize("dark", default_darkness)
 def test_cfg_data(site, dark):
     site_cfg = observer_config.default_observer_config()
 
@@ -70,22 +76,22 @@ def test_option_parsing_range(test_range, expected):
     assert parsed_dict == {"range": expected}
 
 
-@pytest.mark.parametrize("test_site", ["MAGIC", "HESS"])
+@pytest.mark.parametrize("test_site", default_sites)
 def test_option_parsing_site(test_site):
     site = iact_observation_planner.parse_site(test_site)
     assert isinstance(site["site"], EarthLocation)
 
 
-@pytest.mark.parametrize("test_dark", ["dark", "gray", "bright"])
+@pytest.mark.parametrize("test_dark", default_darkness)
 def test_option_parsing_darkness(test_dark):
     parsed_dict = iact_observation_planner.parse_darkness(test_dark)
     assert parsed_dict
 
 
-@pytest.mark.parametrize("test_date", ["2021-01-01", None])
-@pytest.mark.parametrize("test_range", [1, 10])
-@pytest.mark.parametrize("test_dark", ["dark", "gray", "bright"])
-@pytest.mark.parametrize("test_site", ["MAGIC", "HESS"])
+@pytest.mark.parametrize("test_date", default_dates)
+@pytest.mark.parametrize("test_range", default_ranges)
+@pytest.mark.parametrize("test_dark", default_darkness)
+@pytest.mark.parametrize("test_site", default_sites)
 def test_parse_all_opts(test_site, test_dark, test_date, test_range):
     parsed_opts = iact_observation_planner.parse_options(
         test_site, test_dark, test_date, test_range
@@ -110,8 +116,8 @@ def test_resolve_targets(targets):
         assert isinstance(p_targ.coords, SkyCoord)
 
 
-@pytest.mark.parametrize("test_range", [timedelta(days=1), timedelta(days=5)])
-@pytest.mark.parametrize("date", [datetime(2021, 3, 23), datetime(2021, 1, 1)])
+@pytest.mark.parametrize("test_range", [timedelta(days=r) for r in default_ranges])
+@pytest.mark.parametrize("date", [datetime(2021, 3, 24)])
 def test_night(date, test_range):
     site = iact_observation_planner.parse_site("HESS")["site"]
     dark = iact_observation_planner.parse_darkness("dark")["darkness"]
@@ -120,8 +126,8 @@ def test_night(date, test_range):
         assert isinstance(night, type(nights.Night(datetime.utcnow(), site, dark)))
 
 
-@pytest.mark.parametrize("test_dark", ["dark", "gray"])
-@pytest.mark.parametrize("test_site", ["HESS", "MAGIC"])
+@pytest.mark.parametrize("test_dark", default_darkness)
+@pytest.mark.parametrize("test_site", default_sites)
 @pytest.mark.parametrize("date", [datetime(2021, 3, 24)])
 def test_sunrise_sunset(date, test_site, test_dark):
     site = iact_observation_planner.parse_site(test_site)["site"]
