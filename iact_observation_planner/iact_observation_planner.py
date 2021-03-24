@@ -62,7 +62,7 @@ def plan_targets(targets, site, darkness, date, plan_range):
     print(site, type(site))
     options = parse_options(site, darkness, date, plan_range)
 
-    nights = nights.setup_nights(options["date"], options["range"])
+    planned_nights = nights.setup_nights(options["date"], options["range"])
 
     # calculate sun rise/set times
     # calculate moon conditions
