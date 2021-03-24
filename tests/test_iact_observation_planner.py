@@ -13,6 +13,7 @@ from astropy.coordinates import EarthLocation, SkyCoord
 from iact_observation_planner import iact_observation_planner
 from iact_observation_planner import observer_config
 from iact_observation_planner import targets as iop_targets
+from iact_observation_planner import nights
 
 
 def test_deploy_config(tmp_path):
@@ -101,3 +102,11 @@ def test_resolve_targets(targets):
     assert len(parsed_targets) == len(targets)
     for p_targ in parsed_targets:
         assert isinstance(p_targ.coords, SkyCoord)
+
+
+@pytest.mark.parametrize("test_range", [timedelta(days=1), timedelta(days=5)])
+@pytest.mark.parametrize("date", [datetime(2021, 3, 23), datetime(2021, 1, 1)])
+def test_night(date, test_range):
+    parsed_nights = nights.setup_nights(date, test_range)
+    for night in parsed_nights:
+        assert isinstance(night, type(nights.Night(datetime.utcnow())))

@@ -1,3 +1,6 @@
+
+[![run iact-observation-planner tests](https://github.com/ClemensHoischen/iact-observation-planner/actions/workflows/github-pytest.yml/badge.svg?branch=main)](https://github.com/ClemensHoischen/iact-observation-planner/actions/workflows/github-pytest.yml)
+
 # DISCLAIMER
 **This package is not yet available on PyPI and is still in development.**
 **Get in touch if you would like to help.**

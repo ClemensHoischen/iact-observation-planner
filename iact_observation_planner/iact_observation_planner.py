@@ -6,6 +6,7 @@ from astropy.time import Time
 
 from iact_observation_planner import observer_config
 from iact_observation_planner import targets
+from iact_observation_planner import nights
 
 
 CFG_DATA = observer_config.default_observer_config()
@@ -60,6 +61,8 @@ def plan_targets(targets, site, darkness, date, plan_range):
     targets = targets.resolve_target_list(targets)
     print(site, type(site))
     options = parse_options(site, darkness, date, plan_range)
+
+    nights = nights.setup_nights(options["date"], options["range"])
 
     # calculate sun rise/set times
     # calculate moon conditions
