@@ -1,4 +1,4 @@
-name: run iact-observation-planner tests
+name: calculate code-coverage
 
 on: [push]
 
@@ -23,11 +23,28 @@ jobs:
         pip install --user .
     - name: Test coverage with pytest
       run: |
-        pytest --cov=. --cov-report=term > coverage.txt
-        cat coverage.txt | grep TOTAL | awk {'print $4'}" > pytest-coverage.txt
-    - name: coverage-badge
-      uses: actions/upload-artifact@v2
+        TESTCOV="$(pytest --cov=. --cov-report=term | grep TOTAL | awk {'print $4'}")
+        TOKENS=($TESTCOV)
+        echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
+        REF=${{ github.ref }}
+        echo "github.ref: $REF"
+        IFS='/' read -ra PATHS <<< "$REF"
+        # var BRANCH_NAME = PATHS[1] + PATHS[2];
+        BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
+        echo $BRANCH_NAME
+        # process.env.BRANCH = 'pull_27';
+        echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
+    - name: Create Badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
       with:
-        name: code-coverage
-        path: pytest-coverage.txt
+        auth: ${{secrets.GIST_SECRET }}
+        gistID: 2c51ac403e7cee714b127c1b33a1d8d1
+        filename: iact_observation_planner__${{ env.BRANCH }}.json
+        label: Test Coverage
+        message: ${{ env.COVERAGE }}
+        color: green
+        namedLogo: pytest
+
+
+
         
