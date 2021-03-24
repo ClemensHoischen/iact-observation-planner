@@ -25,14 +25,15 @@ jobs:
       run: |
         pytest --cov=. --cov-report=term > testcov.txt
         TESTCOV="$(cat testcov.txt | grep "TOTAL" | awk {'print $4'})"
-        echo "TESTCOV"
-        echo "COVERAGE=$(echo ${TESTCOV})" >> $GITHUB_ENV
+        echo "${TESTCOV[2]}"
+        echo "COVERAGE=$(echo ${TESTCOV[2]})" >> $GITHUB_ENV
         REF=${{ github.ref }}
         echo "github.ref: $REF"
         IFS='/' read -ra PATHS <<< "$REF"
         BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
         echo $BRANCH_NAME
         echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
+
     - name: Create Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
@@ -41,7 +42,7 @@ jobs:
         filename: iact_observation_planner__${{ env.BRANCH }}.json
         label: Test Coverage
         message: ${{ env.COVERAGE }}
-        color: green
+        color: ${{ env.COLOR }}
         namedLogo: pytest
 
 
