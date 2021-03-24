@@ -9,6 +9,7 @@ with open("README.md") as readme_file:
 
 requirements = [
     "astropy==4.2",
+    "ephem==3.7.7.0"
 ]
 
 setup_requirements = [

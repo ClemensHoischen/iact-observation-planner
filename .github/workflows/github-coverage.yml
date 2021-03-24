@@ -25,8 +25,8 @@ jobs:
       run: |
         pytest --cov=. --cov-report=term > testcov.txt
         TESTCOV="$(cat testcov.txt | grep "TOTAL" | awk {'print $4'})"
-        echo "${TESTCOV[2]}"
-        echo "COVERAGE=$(echo ${TESTCOV[2]})" >> $GITHUB_ENV
+        echo "${TESTCOV}"
+        echo "COVERAGE=$(echo ${TESTCOV})" >> $GITHUB_ENV
         REF=${{ github.ref }}
         echo "github.ref: $REF"
         IFS='/' read -ra PATHS <<< "$REF"

@@ -113,6 +113,19 @@ def test_resolve_targets(targets):
 @pytest.mark.parametrize("test_range", [timedelta(days=1), timedelta(days=5)])
 @pytest.mark.parametrize("date", [datetime(2021, 3, 23), datetime(2021, 1, 1)])
 def test_night(date, test_range):
-    parsed_nights = nights.setup_nights(date, test_range)
+    site = iact_observation_planner.parse_site("HESS")["site"]
+    dark = iact_observation_planner.parse_darkness("dark")["darkness"]
+    parsed_nights = nights.setup_nights(date, site, dark, test_range)
     for night in parsed_nights:
-        assert isinstance(night, type(nights.Night(datetime.utcnow())))
+        assert isinstance(night, type(nights.Night(datetime.utcnow(), site, dark)))
+
+
+@pytest.mark.parametrize("test_dark", ["dark", "gray"])
+@pytest.mark.parametrize("test_site", ["HESS","MAGIC"])
+@pytest.mark.parametrize("date", [datetime(2021, 3, 24)])
+def test_sunrise_sunset(date, test_site, test_dark):
+    site = iact_observation_planner.parse_site(test_site)["site"]
+    dark = iact_observation_planner.parse_darkness(test_dark)["darkness"]
+
+    sun_set, sun_rise = nights.find_sun_rise_and_set(date, site, dark)
+    assert sun_set < sun_rise
