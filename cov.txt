@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.8.0, pytest-6.2.2, py-1.10.0, pluggy-0.13.1
+rootdir: /Users/clemenshoischen/priv/iact_observation_planner
+plugins: cov-2.11.1
+collected 48 items
+
+tests/test_iact_observation_planner.py ................................. [ 68%]
+...............                                                          [100%]
+
+=============================== warnings summary ===============================
+tests/test_iact_observation_planner.py::test_cfg_data[dark-HESS]
+tests/test_iact_observation_planner.py::test_cfg_data[dark-MAGIC]
+tests/test_iact_observation_planner.py::test_cfg_data[gray-HESS]
+tests/test_iact_observation_planner.py::test_cfg_data[gray-MAGIC]
+tests/test_iact_observation_planner.py::test_cfg_data[bright-HESS]
+tests/test_iact_observation_planner.py::test_cfg_data[bright-MAGIC]
+  /Users/clemenshoischen/.local/lib/python3.8/site-packages/astropy/units/quantity.py:1069: AstropyDeprecationWarning: The truth value of a Quantity is ambiguous. In the future this will raise a ValueError.
+    warnings.warn('The truth value of a Quantity is ambiguous. '
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+
+---------- coverage: platform darwin, python 3.8.0-final-0 -----------
+Name                                                   Stmts   Miss  Cover
+--------------------------------------------------------------------------
+iact_observation_planner/__init__.py                       3      0   100%
+iact_observation_planner/iact_observation_planner.py      35      5    86%
+iact_observation_planner/iop.py                           27     27     0%
+iact_observation_planner/iop_init.py                      28     28     0%
+iact_observation_planner/nights.py                        21      2    90%
+iact_observation_planner/observer_config.py               26      5    81%
+iact_observation_planner/targets.py                       53     10    81%
+setup.py                                                   8      8     0%
+tests/__init__.py                                          0      0   100%
+tests/test_iact_observation_planner.py                    69      0   100%
+--------------------------------------------------------------------------
+TOTAL                                                    270     85    69%
+
+======================== 48 passed, 6 warnings in 2.66s ========================
