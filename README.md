@@ -4,7 +4,7 @@
 
 # DISCLAIMER
 **This package is not yet available on PyPI and is still in development.**
-**Get in touch if you would like to help.**
+**Get in touch if you would like to help. Apart from that: Feel free to play around with it.**
 
 
 # iact observation planner
@@ -58,6 +58,9 @@ Target Crab Nebula:
  * observable from  2021-01-15T19:00:42
  * observable until 2021-01-15T23:27:49
 ```
+
+Note that this represents the current output, and e.g. the target hours per target is not being used as of yet.
+
 
 ## Ideas
 Some ideas for further development
