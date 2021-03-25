@@ -41,17 +41,15 @@ class Target:
     def __init__(self, name, coord, alt, hours):
         self.name = name
         self.coords = coord
-        self.alt_limit = Quantity(alt + " deg")
-        self.hours = hours
 
         # set altitude and hours to default values
-        if not self.alt_limit:
-            self.alt_limit = 45
-        if not self.hours:
-            self.hours = 2
+        if not alt:
+            alt = "45"
+        if not hours:
+            hours = 2
 
-        self.observe_starts = []
-        self.observe_ends = []
+        self.alt_limit = Quantity(alt + " deg")
+        self.hours = hours
 
     def __repr__(self):
         placeholder = ""

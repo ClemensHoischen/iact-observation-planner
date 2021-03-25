@@ -1,8 +1,6 @@
 
 [![test-suite](https://github.com/ClemensHoischen/iact-observation-planner/actions/workflows/github-pytest.yml/badge.svg?branch=main)](https://github.com/ClemensHoischen/iact-observation-planner/actions/workflows/github-pytest.yml)
 
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ClemensHoischen/2c51ac403e7cee714b127c1b33a1d8d1/raw/iact_observation_planner__heads_main.json)
-
 
 # DISCLAIMER
 **This package is not yet available on PyPI and is still in development.**
