@@ -1,6 +1,7 @@
 # target.py
 
 from astropy import coordinates as coo
+from astropy.units import Quantity
 
 
 def resolve_target_coordinates(name):
@@ -40,7 +41,7 @@ class Target:
     def __init__(self, name, coord, alt, hours):
         self.name = name
         self.coords = coord
-        self.alt_limit = alt
+        self.alt_limit = Quantity(alt + " deg")
         self.hours = hours
 
         # set altitude and hours to default values

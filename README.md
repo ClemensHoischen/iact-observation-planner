@@ -36,8 +36,6 @@ Example command to plan:
 
 `iact-observation-planner  --target "PKS 2155-304;50;2" "Crab Nebula;30;5" -d 2021-03-15 -r 3 -o gray -s HESS`
 
-
-
 ## Acknowledgements
 
 Parts of this project are based on the the [hessobs](https://github.com/kosack/hessobs) project by @kosack.

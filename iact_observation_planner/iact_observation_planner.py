@@ -69,8 +69,11 @@ def plan_targets(target, site, darkness, date, plan_range):
 
     for night in planned_nights:
         print(night)
-    # calculate moon conditions
-    # claculate target visibility
+        for target in targets:
+            night.plan_target(target)
+
+        night.print_schedule()
+
     # allocate targets
 
 
