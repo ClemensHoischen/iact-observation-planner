@@ -12,8 +12,9 @@
 This is a tool to quickly evaluate different constraints for planning observations with iacts. different sites, darkness conditions are supported. multiple targets with individual target hours and altitude limits are supported.
 
 ## Installation
+The tool is in development with `python3.8` so you might want to setup a virtual environment with this python version.
 
-Clone and install the repo:
+Simply clone the repo and install the package with pip:
 ```
 git clone https://github.com/ClemensHoischen/iact-observation-planner.git
 cd iact_observation_planner
