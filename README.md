@@ -27,12 +27,12 @@ It will copy the default configuration to `<path>`. Applying an environemnt vari
 just try `iact-observation-planner --help` for the details of all options.
 
 Example command to plan:
-- PKS 2155 with altitude > 50 deg for 2 hours
+- PKS 2155-304 with altitude > 50 deg for 2 hours
 - Crab Nebula with altitude > 30 deg for 5 hours
-- starting 2021-03-15
-- for 3 nights
-- using the 'gray'darkness definition
-- on the HESS site
+- starting _2021-03-15_
+- for _3_ nights
+- using the _gray_ darkness definition
+- on the _HESS_ site
 
 `iact-observation-planner  --target "PKS 2155-304;50;2" "Crab Nebula;30;5" -d 2021-03-15 -r 3 -o gray -s HESS`
 
