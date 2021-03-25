@@ -61,7 +61,7 @@ Target Crab Nebula:
 
 ## Ideas
 Some ideas for further development
-# suggested observation times
+### suggested observation times
 The tool should suggest (at least) two kinds of time allocations:
 - the earliest possible observation time up to the spcified hours per target
 - the time range optimized for highest altitude
