@@ -13,7 +13,12 @@ This is a tool to quickly evaluate different constraints for planning observatio
 
 ## Installation
 
-`pip install iact-observation-planner`
+Clone and install the repo:
+```
+git clone https://github.com/ClemensHoischen/iact-observation-planner.git
+cd iact_observation_planner
+pip install --user .
+```
 
 ## Configuring
 
