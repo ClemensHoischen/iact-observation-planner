@@ -53,15 +53,12 @@ class Target:
         self.observe_ends = []
 
     def __repr__(self):
+        placeholder = ""
         out = ""
-        out += "{0:15s} : {coord}".format(
-            self.name, coord=self.coords.to_string(style="hmsdms")
-        )
-        out += " - (ra = {:2.2f} deg = {:2.2f} deg)\n".format(
-            self.coords.ra.deg, self.coords.dec.deg
-        )
-        out += "{0:15s}   Altitude > {1};".format("", self.alt_limit)
-        out += " {0:15s}   Target observation time = {1}".format("", self.hours)
+        out += f"{self.name:15} : {self.coords.to_string(style='hmsdms')}"
+        out += f" - (ra = {self.coords.ra.deg:2.2f} deg = {self.coords.dec.deg:2.2f} deg)\n"
+        out += f"{placeholder:15}   Altitude > {self.alt_limit}\n"
+        out += f"{placeholder:15}   Target observation time = {self.hours}"
 
         return out
 

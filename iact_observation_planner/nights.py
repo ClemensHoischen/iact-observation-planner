@@ -19,10 +19,13 @@ class Night:
         )
 
     def __repr__(self):
-        out = str(self.date) + "\n"
-        out += " * Sun Set:  {}\n".format(self.sun_set)
-        out += " * Sun Rise: {}\n".format(self.sun_rise)
+        out = f"Evening Date: {self.date:%Y-%m-%d}\n"
+        out += f" * Sun Set:  {self.sun_set}\n"
+        out += f" * Sun Rise: {self.sun_rise}\n"
         return out
+
+    def plan_target(self, target):
+        print(target)
 
 
 def setup_nights(date, site, darkness, plan_range):

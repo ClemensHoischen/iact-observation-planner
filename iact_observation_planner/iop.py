@@ -68,22 +68,9 @@ Example: "Crab Nebula;30;5" to plan observations on the crab nebula with
         parser.print_help()
         return 0
 
-    parsed_targets = targets.resolve_target_list(args.target)
-
-    print("Will evaluate the possible observation for targets:")
-    for target in parsed_targets:
-        print(target)
-    print("planning with:")
-    print("  * site: {}".format(args.site))
-    print("  * darkness: {}".format(args.darkness))
-    print("  * date: {}".format(args.date))
-    print("  * range: {}".format(timedelta(days=args.range)))
-
-    return 0
-    #
-    # return iact_observation_planner.plan_targets(
-    #     args.targets, args.site, args.darkness, args.date, args.range
-    # )
+    return iact_observation_planner.plan_targets(
+        args.target, args.site, args.darkness, args.date, args.range
+    )
 
 
 if __name__ == "__main__":

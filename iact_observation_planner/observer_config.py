@@ -28,11 +28,13 @@ class ObserverConfiguration:
             exit()
 
         site = self.sites[name]
-        return EarthLocation(
+        location = EarthLocation(
             lon=float(site["lon"]),
             lat=float(site["lat"]),
             height=float(site["height"]),
         )
+        location.info.name = name
+        return location
 
     def get_darkness_from_name(self, name):
         """ Getter for specific darkness criteria from the config """

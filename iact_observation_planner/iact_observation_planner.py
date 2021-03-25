@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from astropy.time import Time
 
 from iact_observation_planner import observer_config
-from iact_observation_planner import targets
-from iact_observation_planner import nights
+from iact_observation_planner import targets as iop_targets
+from iact_observation_planner import nights as iop_nights
 
 
 CFG_DATA = observer_config.default_observer_config()
@@ -56,15 +56,33 @@ def parse_date(option):
     return {"date": date}
 
 
-def plan_targets(targets, site, darkness, date, plan_range):
+def plan_targets(target, site, darkness, date, plan_range):
     """main function of the tool that performs the planning"""
-    targets = targets.resolve_target_list(targets)
-    print(site, type(site))
+    targets = iop_targets.resolve_target_list(target)
     options = parse_options(site, darkness, date, plan_range)
+    summarize_options(options, targets)
 
-    planned_nights = nights.setup_nights(options["date"], options["range"])
+    # Setup the nights to plan and calculate sun rise/set times
+    planned_nights = iop_nights.setup_nights(
+        options["date"], options["site"], options["darkness"], options["range"]
+    )
 
-    # calculate sun rise/set times
+    for night in planned_nights:
+        print(night)
     # calculate moon conditions
     # claculate target visibility
     # allocate targets
+
+
+def summarize_options(options, targets):
+    out = "Planning the following targets:\n"
+    for target in targets:
+        out += f"{target}\n"
+
+    out += "Boundry Conditions:\n"
+    out += f" * Site:       {options['site'].info.name}\n"
+    out += f" * Darkness:   {options['darkness']}\n"
+    out += f" * Start Date: {options['date']:%Y-%m-%d}\n"
+    out += f" * N nights:   {options['range'].days}\n"
+
+    print(out)
