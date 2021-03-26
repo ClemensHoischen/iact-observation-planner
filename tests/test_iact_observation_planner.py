@@ -151,7 +151,15 @@ def test_plan_target(test_targets, date, test_site, test_dark, test_range):
         for target in targets:
             night.plan_target(target)
 
-@pytest.mark.parametrize("test_args", ["--target 'PKS 2155-304;50;2' 'Crab Nebula;30;5' -d 2021-01-15 -r 1 -o dark -s HESS"])
+@pytest.mark.now
+@pytest.mark.parametrize("test_args", [['--target "M87;30;5" "Crab Nebula;25;1"', "-d 2021-01-15", "-r 1", "-o dark", "-s HESS"]])
 def test_example_call(test_args):
-    command = "iact-observation-planner"
-    call = sp.run([command, test_args], stdout=sp.DEVNULL)
+    command = ["iact-observation-planner"]
+    for arg in test_args:
+        command.append(arg)
+    
+    comm = " ".join(command)
+
+    call = sp.run(comm, stdout=sp.PIPE, shell=True, universal_newlines=True)
+    print(call.stdout)
+    assert "Planning the following targets:" in call.stdout
