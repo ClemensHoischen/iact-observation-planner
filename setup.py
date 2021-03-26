@@ -10,10 +10,10 @@ with open("README.md") as readme_file:
 requirements = ["astropy==4.2", "ephem==3.7.7.0", "pandas==1.2.3", "matplotlib"]
 
 setup_requirements = [
-    "astropy",
+    "astropy==4.2", "ephem==3.7.7.0", "pandas==1.2.3", "matplotlib"
 ]
 
-test_requirements = ["pytest>=3", "pytest-cov>=2.11"]
+test_requirements = ["pytest>=3", "pytest-cov>=2.11", "astropy==4.2", "ephem==3.7.7.0", "pandas==1.2.3", "matplotlib"]
 
 setup(
     author="Clemens Hoischen",
