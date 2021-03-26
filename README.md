@@ -1,4 +1,3 @@
-
 [![test-suite](https://github.com/ClemensHoischen/iact-observation-planner/actions/workflows/github-pytest.yml/badge.svg?branch=main)](https://github.com/ClemensHoischen/iact-observation-planner/actions/workflows/github-pytest.yml)
 
 [![codecov](https://codecov.io/gh/ClemensHoischen/iact-observation-planner/branch/main/graph/badge.svg?token=AKR7Z76CGV)](https://codecov.io/gh/ClemensHoischen/iact-observation-planner)
