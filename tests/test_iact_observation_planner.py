@@ -107,6 +107,7 @@ def test_parse_all_opts(test_site, test_dark, test_date, test_range):
         ["Crab Nebula;30;2", "Vela Pulsar;25;4"],
         ["rd/123.3d,-23.5d/my_target;15;8"],
         ["rd/55.2351d,85.1d/my_other_target"],
+        ["lb/55.2351d,85.1d/my_lb_target"],
     ],
 )
 def test_resolve_targets(targets):
@@ -123,6 +124,7 @@ def test_night(date, test_range):
     dark = iact_observation_planner.parse_darkness("dark")["darkness"]
     parsed_nights = nights.setup_nights(date, site, dark, test_range)
     for night in parsed_nights:
+        print(night)
         assert isinstance(night, type(nights.Night(datetime.utcnow(), site, dark)))
 
 

@@ -31,21 +31,6 @@ class Night:
         out += f" * Sun Rise: {self.sun_rise}\n"
         return out
 
-    def print_schedule(self):
-        targets = self.schedule.keys()
-        print(self.sun_set)
-        if len(targets):
-            for target in targets:
-                out = f"Target {target}:\n"
-                out += f" * observable from  {self.schedule[target]['start']:%Y-%m-%dT%H:%M:%S}\n"
-                out += f" * observable until {self.schedule[target]['end']:%Y-%m-%dT%H:%M:%S}\n"
-                print(out)
-            print(self.sun_rise)
-            return
-
-        print("No targets available for observations.")
-        return
-
     def plan_target(self, target):
         """plan a target into a single night
 
