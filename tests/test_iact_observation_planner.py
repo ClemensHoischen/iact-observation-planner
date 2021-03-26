@@ -136,6 +136,7 @@ def test_sunrise_sunset(date, test_site, test_dark):
     sun_set, sun_rise = nights.find_sun_rise_and_set(date, site, dark)
     assert sun_set < sun_rise
 
+
 @pytest.mark.parametrize("test_targets", [["PKS 2155-304"]])
 @pytest.mark.parametrize("test_range", [timedelta(days=r) for r in default_ranges])
 @pytest.mark.parametrize("date", [datetime(2021, 3, 24)])
@@ -151,13 +152,24 @@ def test_plan_target(test_targets, date, test_site, test_dark, test_range):
         for target in targets:
             night.plan_target(target)
 
-@pytest.mark.now
-@pytest.mark.parametrize("test_args", [['--target "M87;30;5" "Crab Nebula;25;1"', "-d 2021-01-15", "-r 1", "-o dark", "-s HESS"]])
+
+@pytest.mark.parametrize(
+    "test_args",
+    [
+        [
+            '--target "M87;30;5" "Crab Nebula;25;1"',
+            "-d 2021-01-15",
+            "-r 1",
+            "-o dark",
+            "-s HESS",
+        ]
+    ],
+)
 def test_example_call(test_args):
     command = ["iact-observation-planner"]
     for arg in test_args:
         command.append(arg)
-    
+
     comm = " ".join(command)
 
     call = sp.run(comm, stdout=sp.PIPE, shell=True, universal_newlines=True)
