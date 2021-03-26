@@ -135,3 +135,23 @@ def test_sunrise_sunset(date, test_site, test_dark):
 
     sun_set, sun_rise = nights.find_sun_rise_and_set(date, site, dark)
     assert sun_set < sun_rise
+
+@pytest.mark.parametrize("test_targets", [["PKS 2155-304"]])
+@pytest.mark.parametrize("test_range", [timedelta(days=r) for r in default_ranges])
+@pytest.mark.parametrize("date", [datetime(2021, 3, 24)])
+@pytest.mark.parametrize("test_dark", default_darkness)
+@pytest.mark.parametrize("test_site", default_sites)
+def test_plan_target(test_targets, date, test_site, test_dark, test_range):
+    targets = iop_targets.resolve_target_list(test_targets)
+    dark = iact_observation_planner.parse_darkness(test_dark)["darkness"]
+    site = iact_observation_planner.parse_site(test_site)["site"]
+    parsed_nights = nights.setup_nights(date, site, dark, test_range)
+
+    for night in parsed_nights:
+        for target in targets:
+            night.plan_target(target)
+
+@pytest.mark.parametrize("test_args", ["--target 'PKS 2155-304;50;2' 'Crab Nebula;30;5' -d 2021-01-15 -r 1 -o dark -s HESS"])
+def test_example_call(test_args):
+    command = "iact-observation-planner"
+    call = sp.run([command, test_args], stdout=sp.DEVNULL)
