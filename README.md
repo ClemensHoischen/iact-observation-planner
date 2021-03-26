@@ -31,38 +31,40 @@ It will copy the default configuration to `<path>`. Applying an environemnt vari
 just try `iact-observation-planner --help` for the details of all options.
 
 Example command to plan:
-- PKS 2155-304 with altitude > 50 deg for 2 hours
-- Crab Nebula with altitude > 30 deg for 5 hours
-- starting _2021-03-15_
-- for _1_ nights
-- using the _gray_ darkness definition
+- Eta Carinae with altitude > 30 deg for 2 hours
+- PSR B1259-63 with altitude > 30 deg for 5 hours
+- starting _2021-03-09_
+- for _3_ nights
+- using the _dark_ darkness definition
 - on the _HESS_ site
 
-`iact-observation-planner  --target "PKS 2155-304;50;2" "Crab Nebula;30;5" -d 2021-01-15 -r 1 -o dark -s HESS`
+`iact-observation-planner --target "Eta Carinae;30;2" "PSR B1259-63;30;5" -d 2021-03-09 -r 3 -o dark -s HESS`
 
 The resulting output is:
 
 ```
 Planning the following targets:
-PKS 2155-304    : 21h58m52.0652s -30d13m32.1207s - (ra = 329.72 deg = -30.23 deg)
-                  Altitude > 50.0 deg
+Eta Carinae     : 10h45m03.5455s -59d41m03.9511s - (ra = 161.26 deg = -59.68 deg)
+                  Altitude > 30.0 deg
                   Target observation time = 2
-Crab Nebula     : 05h34m31.94s +22d00m52.2s - (ra = 83.63 deg = 22.01 deg)
+PSR B1259-63    : 13h02m47.6542s -63d50m08.6259s - (ra = 195.70 deg = -63.84 deg)
                   Altitude > 30.0 deg
                   Target observation time = 5
 Boundry Conditions:
  * Site:       HESS
  * Darkness:   {'max_sun_altitude': '-16 deg', 'max_moon_altitude': '-0.5 deg', 'max_moon_phase': False, 'min_moon_distance': False}
- * Start Date: 2021-01-15
- * N nights:   1
+ * Start Date: 2021-03-09
+ * N nights:   3
 
-Evening Date: 2021-01-15
- * Sun Set:  2021-01-15 19:00:42.902484
- * Sun Rise: 2021-01-16 03:08:22.424208
-
-Target Crab Nebula:
- * observable from  2021-01-15T19:00:42
- * observable until 2021-01-15T23:27:49
+Evening Date: 2021-03-09
+ * Eta Carinae: from 18:22:49 to 01:57:01  culmination at 22:29:47
+ * PSR B1259-63: from 20:13:32 to 01:57:01  culmination at 00:46:03
+Evening Date: 2021-03-10
+ * Eta Carinae: from 18:21:49 to 02:54:09  culmination at 22:26:36
+ * PSR B1259-63: from 20:09:58 to 02:54:09  culmination at 00:43:13
+Evening Date: 2021-03-11
+ * Eta Carinae: from 18:20:48 to 03:00:11  culmination at 22:20:31
+ * PSR B1259-63: from 20:06:24 to 03:48:42  culmination at 00:40:21
 ```
 
 Note that this represents the current output, and e.g. the target hours per target is not being used as of yet.

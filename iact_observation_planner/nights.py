@@ -33,12 +33,14 @@ class Night:
 
     def print_schedule(self):
         targets = self.schedule.keys()
+        print(self.sun_set)
         if len(targets):
             for target in targets:
                 out = f"Target {target}:\n"
                 out += f" * observable from  {self.schedule[target]['start']:%Y-%m-%dT%H:%M:%S}\n"
                 out += f" * observable until {self.schedule[target]['end']:%Y-%m-%dT%H:%M:%S}\n"
                 print(out)
+            print(self.sun_rise)
             return
 
         print("No targets available for observations.")
@@ -61,7 +63,7 @@ class Night:
         test_dates = np.array([date2num(time.datetime) for time in time_range])
 
         # calculate the moon and target positions during the night in alt az coordinates
-        moon_pos = self.calculate_moon_positions(test_dates)
+        moon_pos = self.calculate_moon_positions(time_range)
         target_alt_az = self.calculate_target(time_range, target)
 
         # calculate the target/moon separation
@@ -98,12 +100,16 @@ class Night:
         filter_mask = target_alt_ok & moon_alt_ok & moon_dist_ok & moon_phase_ok
         valid_target_times = test_dates[filter_mask]
         valid_dates = [num2date(d) for d in valid_target_times]
+        
         if len(valid_dates):
-            target_start = valid_dates[0]
-            target_end = valid_dates[-1]
+            target_start = min(valid_dates)
+            target_end = max(valid_dates)
 
             self.schedule.update(
-                {target.name: {"start": target_start, "end": target_end}}
+                {target.name: {"start": target_start,
+                               "end": target_end,
+                               "altitudes": target_alt_az.alt[filter_mask],
+                               "times": valid_dates}}
             )
 
     def calculate_target(self, time_range, target):
@@ -125,7 +131,7 @@ class Night:
         obs.lat = str(self.site.lat / u.deg)
         obs.elev = self.site.height / u.m
         for ii, tt in enumerate(test_dates):
-            obs.date = ephem.Date(tt)
+            obs.date = ephem.Date(tt.datetime)
             moon.compute(obs)
             moon_altitudes[ii] = moon.alt * 180.0 / np.pi
             moon_azimuths[ii] = moon.az * 180.0 / np.pi

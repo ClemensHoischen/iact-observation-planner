@@ -7,7 +7,7 @@ from astropy.time import Time
 from iact_observation_planner import observer_config
 from iact_observation_planner import targets as iop_targets
 from iact_observation_planner import nights as iop_nights
-
+from iact_observation_planner.schedule import Schedule
 
 CFG_DATA = observer_config.default_observer_config()
 if os.environ.get("IOP_SITE_CONFIG"):
@@ -67,12 +67,12 @@ def plan_targets(target, site, darkness, date, plan_range):
         options["date"], options["site"], options["darkness"], options["range"]
     )
 
+    # calculate 1 night per thread TODO: Threadding
     for night in planned_nights:
-        print(night)
         for target in targets:
             night.plan_target(target)
 
-        night.print_schedule()
+    sched = Schedule(planned_nights)
 
     # allocate targets
 
