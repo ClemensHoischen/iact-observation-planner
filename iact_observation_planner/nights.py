@@ -23,6 +23,9 @@ class Night:
         self.sun_set, self.sun_rise = find_sun_rise_and_set(
             self.date, self.site, self.darkness
         )
+        self.moon_set, self.moon_rise = find_monn_rise_and_set(
+            self.date, self.site, self.darkness
+        )
         self.schedule = {}
 
     def __repr__(self):
@@ -85,16 +88,21 @@ class Night:
         filter_mask = target_alt_ok & moon_alt_ok & moon_dist_ok & moon_phase_ok
         valid_target_times = test_dates[filter_mask]
         valid_dates = [num2date(d) for d in valid_target_times]
-        
+
         if len(valid_dates):
             target_start = min(valid_dates)
             target_end = max(valid_dates)
 
             self.schedule.update(
-                {target.name: {"start": target_start,
-                               "end": target_end,
-                               "altitudes": target_alt_az.alt[filter_mask],
-                               "times": valid_dates}}
+                {
+                    target.name: {
+                        "start": target_start,
+                        "end": target_end,
+                        "altitudes": target_alt_az.alt[filter_mask],
+                        "times": valid_dates,
+                        "color": target.color,
+                    }
+                }
             )
 
     def calculate_target(self, time_range, target):
@@ -183,3 +191,22 @@ def find_sun_rise_and_set(date, site, darkness):
     sun_rise = obs.next_rising(sun, use_center=True, start=sun_set).datetime()
 
     return sun_set, sun_rise
+
+def find_monn_rise_and_set(date, site, darkness):
+    moon_rise = None
+    moon_set = None
+
+    moon_horizon = Angle(darkness["max_moon_altitude"]).to_string(unit=u.degree, sep=":")
+    moon = ephem.Moon()
+    obs = ephem.Observer()
+    obs.lon = str(site.lon / u.deg)
+    obs.lat = str(site.lat / u.deg)
+    obs.elev = site.height / u.m
+    obs.date = date
+    obs.horizon = moon_horizon
+    moon.compute(obs)
+
+    moon_set = obs.next_setting(moon, use_center=True, start=date).datetime()
+    moon_rise = obs.next_rising(moon, use_center=True, start=moon_set).datetime()
+
+    return moon_set, moon_rise

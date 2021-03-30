@@ -7,7 +7,13 @@ from setuptools import setup, find_packages
 with open("README.md") as readme_file:
     readme = readme_file.read()
 
-requirements = ["astropy==4.2", "ephem==3.7.7.0", "pandas==1.2.3", "matplotlib"]
+requirements = [
+    "astropy==4.2",
+    "ephem==3.7.7.0",
+    "pandas==1.2.3",
+    "matplotlib",
+    "seaborn",
+]
 
 setup_requirements = ["astropy==4.2", "ephem==3.7.7.0", "pandas==1.2.3", "matplotlib"]
 
