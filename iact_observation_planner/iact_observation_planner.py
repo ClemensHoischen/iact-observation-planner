@@ -73,9 +73,12 @@ def plan_targets(target, site, darkness, date, plan_range):
             night.plan_target(target)
 
     sched = Schedule(planned_nights)
-
-    # allocate targets
-
+    # TODO: summarize available tarktime per target
+    # TODO: allocate time according to options (zenith, time)    
+    figure = sched.plot_schedule(targets)
+    figure.savefig("obsplan.png")
+    #save figure according to options
+    
 
 def summarize_options(options, targets):
     out = "Planning the following targets:\n"

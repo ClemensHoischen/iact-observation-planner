@@ -1,5 +1,6 @@
 # target.py
 
+import seaborn as sns
 from astropy import coordinates as coo
 from astropy.units import Quantity
 
@@ -38,7 +39,7 @@ class Target:
     * end time(s) of observable windows
     """
 
-    def __init__(self, name, coord, alt, hours):
+    def __init__(self, name, coord, alt, hours, color):
         self.name = name
         self.coords = coord
 
@@ -50,6 +51,7 @@ class Target:
 
         self.alt_limit = Quantity(alt + " deg")
         self.hours = hours
+        self.color = color
 
     def __repr__(self):
         placeholder = ""
@@ -66,9 +68,10 @@ def resolve_target_list(targets_list):
     """resolves the target argument list given by the main tools usage into workable targets
     with name, coordinates, ..."""
     targets = []
-
+    colors = sns.color_palette("bright", len(targets_list), as_cmap=True)
     # Fill all targets from the commandline arguments into a dict
     targets_dict = {}
+    icol = 0
     for target in targets_list:
         target_args = target.split(";")
         name = target_args[0]
@@ -83,7 +86,13 @@ def resolve_target_list(targets_list):
         else:
             hours = None
 
-        targets_dict[name] = {"name": name, "alt_limit": alt_limit, "hours": hours}
+        targets_dict[name] = {
+            "name": name,
+            "alt_limit": alt_limit,
+            "hours": hours,
+            "color": colors[icol],
+        }
+        icol += 1
 
     # fill a list of Target objects from the dict and return it
     for name, target_dict in targets_dict.items():
@@ -95,6 +104,7 @@ def resolve_target_list(targets_list):
                 coords,
                 target_dict["alt_limit"],
                 target_dict["hours"],
+                target_dict["color"],
             )
         )
 
