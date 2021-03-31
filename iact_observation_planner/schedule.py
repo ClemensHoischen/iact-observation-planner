@@ -106,6 +106,10 @@ class Schedule:
         [ax.set_xticks(xticks_ar) for ax in axes]
         [ax.set_xticklabels(xtick_labels) for ax in axes]
 
+        axes[-1].set_xlabel('Time (UTC)')
+        # axes.ylabel('Evening Date')
+        axes[0].set_title("Scheduling windows for the specified targets")
+
         #TODO: add legend with target names
         #TODO: add title
         #TODO: add axis titles
@@ -121,16 +125,17 @@ def plot_sun_moon_down(ax, sun_set, sun_rise, moon_set, moon_rise):
     end_sun = get_timedelta_seconds(sun_rise)
     start_moon = get_timedelta_seconds(moon_set)
     end_moon = get_timedelta_seconds(moon_rise)
-    # mark area where the sun is down
-    ax.fill_between([start_sun, end_sun], -1.25, 1.25, color="black", alpha=0.4, zorder=0)
-    # TODO: also mark the area where the sun and moon is down
-    moon_start = max([start_sun, start_moon])
-    moon_end = min([end_sun, end_moon])
-    #
-    # ax.fill_between([moon_start, moon_end], -1.25, 1.25,
-    #                 where=moon_start>=start_sun and moon_end <=end_sun,
-    #                 color='black', alpha=0.6, zorder=1)
 
+    # mark area where the sun is down
+    print(start_sun, end_sun, start_moon, end_moon)
+
+    x = np.linspace(start_sun, end_sun, 50)
+    moon_up_end = [a >= end_moon for a in x]
+    moon_up_start = [a <= start_moon for a in x]
+    # all_down = [v for v in x if v not in moon_up_end and v not in moon_up_start]
+    ax.fill_between(x, -1.25, 1.25, color="black")
+    # ax.fill_between(x, -1.25, 1.25, where=moon_up_end, color='gray')
+    # ax.fill_between(x, -1.25, 1.25, where=moon_up_start, color='gray')
 
 def get_timedelta_seconds(time):
     days = 0
